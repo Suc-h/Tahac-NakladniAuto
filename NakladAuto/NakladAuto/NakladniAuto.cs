@@ -1,64 +1,68 @@
-﻿namespace NakladAuto
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace NakladAuto
 {
     internal class NakladniAuto
     {
-        protected string spz;
-        protected int nosnost;
-        protected int hmotnostNakladu = 0;
-
+        private string spz;
+        private int nosnost;
+        private int hmotnostNakladu = 0;
+       
         public int HmotnostNakladu
         {
             get
             {
                 return hmotnostNakladu;
-            }
+            }            
         }
-        public NakladniAuto(string spz, int nosnost)
+        public NakladniAuto(string spz,int nosnost)
         {
             this.nosnost = nosnost;
             this.spz = spz;
         }
-        public virtual void NalozNaklad(int hmotnost)
+        public void NalozNaklad(int hmotnost)
         {
-            MessageBox.Show("Nakládám....");
-            if (hmotnost > nosnost)
+            if(hmotnost>nosnost)
             {
 
-                hmotnostNakladu = nosnost;
+                hmotnostNakladu = hmotnost-(hmotnost-nosnost);
 
 
                 MessageBox.Show("Náklad nebyl naložen celý, protože hmotnost je větší než nosnost! Nenaložilo se proto: " + (hmotnost - nosnost + "T"));
-
+                
             }
             else
             {
+                
 
-
-                hmotnostNakladu = hmotnostNakladu + hmotnost;
-
+                hmotnostNakladu = hmotnost;
+                
             }
         }
-        public virtual void VylozNaklad(int hmotnost)
+        public void VylozNaklad(int hmotnost)
         {
-            MessageBox.Show("Vykládám....");
-            if (hmotnost > hmotnostNakladu)
+            if(hmotnost>hmotnostNakladu)
             {
-
+               
                 MessageBox.Show("Chybí náklad:" + (hmotnost - hmotnostNakladu) + "T");
                 hmotnostNakladu = 0;
             }
             else
             {
-
+               
                 hmotnostNakladu = hmotnostNakladu - hmotnost;
-
+                
             }
         }
 
         public override string? ToString()
         {
-            return "Nákladní auto " + spz + " má nosnost: " + nosnost + "T a má naloženo " + hmotnostNakladu + "T";
-
+                return "Nákladní auto " + spz + " má nosnost: " + nosnost + "T a má naloženo " + hmotnostNakladu + "T";
+           
         }
     }
 }
